@@ -193,6 +193,45 @@ html[data-theme="night"] .brand-copy strong span {
   font-size: 12px;
 }
 
+.sync-status-indicator {
+  position: relative;
+  display: flex;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+}
+
+.sync-status-pulse,
+.sync-status-dot {
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+}
+
+.sync-status-pulse {
+  position: absolute;
+  background: var(--color-success);
+  opacity: 0.75;
+  animation: sync-status-ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.sync-status-dot {
+  position: relative;
+  background: var(--color-success);
+}
+
+.sync-status-indicator.is-offline .sync-status-dot {
+  background: var(--color-warning);
+}
+
+@keyframes sync-status-ping {
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+
 .sync-status time {
   padding-left: 3px;
   color: color-mix(in oklab, var(--color-base-content) 48%, transparent);
@@ -205,8 +244,19 @@ html[data-theme="night"] .brand-copy strong span {
   border-radius: 999px;
 }
 
+.header-api-link {
+  gap: 5px;
+  border-radius: 999px;
+}
+
 .theme-toggle-label {
   font-size: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sync-status-pulse {
+    animation: none;
+  }
 }
 
 .site-main {

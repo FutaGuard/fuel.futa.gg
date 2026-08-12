@@ -61,6 +61,13 @@ test("includes extended and custom time-range controls", async () => {
   }
   assert.match(dashboard, /type="monotone"/);
   assert.doesNotMatch(dashboard, /type="stepAfter"/);
+  assert.match(dashboard, /sync-status-pulse/);
+  assert.match(css, /@keyframes sync-status-ping/);
+  assert.match(css, /prefers-reduced-motion: reduce/);
+  assert.match(
+    dashboard,
+    /https:\/\/github\.com\/FutaGuard\/SunsetRollercoaster/,
+  );
   assert.match(css, /@plugin "daisyui"/);
   assert.match(packageJson, /"daisyui":/);
   assert.match(packageJson, /"recharts":/);

@@ -319,11 +319,26 @@ function SiteHeader({
 
       <div className="header-actions">
         <div className="sync-status" aria-label={`資料同步時間 ${syncLabel}`}>
-          <span className={`status status-xs ${hasData ? "status-success" : "status-warning"}`} />
+          <span
+            className={`sync-status-indicator ${hasData ? "is-synced" : "is-offline"}`}
+            aria-hidden="true"
+          >
+            {hasData ? <span className="sync-status-pulse" /> : null}
+            <span className="sync-status-dot" />
+          </span>
           <span>{hasData ? "資料已同步" : "資料連線中斷"}</span>
           <time dateTime={fetchedAt}>{syncLabel}</time>
         </div>
         <ThemeToggle />
+        <a
+          href="https://github.com/FutaGuard/SunsetRollercoaster"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn btn-sm btn-ghost header-api-link"
+          aria-label="前往 SunsetRollercoaster API GitHub 專案"
+        >
+          API <ExternalLink size={15} aria-hidden="true" />
+        </a>
       </div>
     </header>
   );
