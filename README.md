@@ -33,6 +33,12 @@ npm run deploy:pages
 npm run check:deployment -- https://fuel.futa.gg/
 ```
 
+也可用本機 Chrome 模擬常見手機寬度，檢查主要卡片與圖表容器是否超出畫面：
+
+```bash
+npm run check:mobile-layout -- https://fuel.futa.gg/
+```
+
 ## 驗證
 
 ```bash
