@@ -4,6 +4,10 @@ const API_BASE_URL = "https://opendata.futa.gg";
 const PAGE_SIZE = 1000;
 const MAX_PAGES = 10;
 
+function isNullableFiniteNumber(value: unknown): value is number | null {
+  return value === null || (typeof value === "number" && Number.isFinite(value));
+}
+
 function isFuelPriceRecord(value: unknown): value is FuelPriceRecord {
   if (typeof value !== "object" || value === null) return false;
 
@@ -19,7 +23,10 @@ function isFuelPriceRecord(value: unknown): value is FuelPriceRecord {
     typeof record.unleaded_98 === "number" &&
     Number.isFinite(record.unleaded_98) &&
     typeof record.super_diesel === "number" &&
-    Number.isFinite(record.super_diesel)
+    Number.isFinite(record.super_diesel) &&
+    isNullableFiniteNumber(record.west_texas) &&
+    isNullableFiniteNumber(record.dubai) &&
+    isNullableFiniteNumber(record.brent)
   );
 }
 

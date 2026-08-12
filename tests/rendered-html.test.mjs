@@ -40,8 +40,9 @@ test("server-renders the fuel dashboard shell", async () => {
 });
 
 test("includes extended and custom time-range controls", async () => {
-  const [dashboard, css, packageJson] = await Promise.all([
+  const [dashboard, page, css, packageJson] = await Promise.all([
     readFile(new URL("../app/FuelDashboard.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
@@ -52,6 +53,14 @@ test("includes extended and custom time-range controls", async () => {
   assert.match(dashboard, /type="date"/);
   assert.match(dashboard, /套用區間/);
   assert.match(dashboard, /aria-pressed/);
+  for (const label of ["西德州原油", "杜拜原油", "布蘭特原油", "原油價格走勢"]) {
+    assert.match(dashboard, new RegExp(label));
+  }
+  for (const field of ["west_texas", "dubai", "brent"]) {
+    assert.match(page, new RegExp(field));
+  }
+  assert.match(dashboard, /type="monotone"/);
+  assert.doesNotMatch(dashboard, /type="stepAfter"/);
   assert.match(css, /@plugin "daisyui"/);
   assert.match(packageJson, /"daisyui":/);
   assert.match(packageJson, /"recharts":/);

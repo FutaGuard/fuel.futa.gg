@@ -3,7 +3,7 @@ import "./globals.css";
 
 const title = "台灣油價歷史趨勢 · fuel.futa.gg";
 const description =
-  "查看台灣 92、95、98 無鉛汽油與超級柴油的每週價格、歷史趨勢與自訂日期區間。";
+  "查看台灣 92、95、98 無鉛汽油、超級柴油，以及西德州、杜拜與布蘭特原油的每週價格與歷史趨勢。";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fuel.futa.gg"),

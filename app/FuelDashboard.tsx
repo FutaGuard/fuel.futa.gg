@@ -5,6 +5,7 @@ import {
   Check,
   Database,
   ExternalLink,
+  Flame,
   Fuel,
   Minus,
   Monitor,
@@ -41,6 +42,9 @@ export interface FuelPriceRecord {
   unleaded_95: number;
   unleaded_98: number;
   super_diesel: number;
+  west_texas: number | null;
+  dubai: number | null;
+  brent: number | null;
 }
 
 type FuelKey =
@@ -48,6 +52,7 @@ type FuelKey =
   | "unleaded_95"
   | "unleaded_98"
   | "super_diesel";
+type CrudeKey = "west_texas" | "dubai" | "brent";
 type RangePreset = "3m" | "6m" | "1y" | "3y" | "5y" | "10y" | "all" | "custom";
 type ThemeMode = "system" | "light" | "dark";
 type ChartRecord = FuelPriceRecord & { date: string };
@@ -58,6 +63,29 @@ const SERIES = [
   { key: "unleaded_98", label: "98 無鉛", shortLabel: "98", color: "var(--fuel-98)" },
   { key: "super_diesel", label: "超級柴油", shortLabel: "柴油", color: "var(--fuel-diesel)" },
 ] as const;
+
+const CRUDE_SERIES = [
+  {
+    key: "west_texas",
+    label: "西德州原油",
+    shortLabel: "WTI",
+    color: "var(--crude-wti)",
+  },
+  {
+    key: "dubai",
+    label: "杜拜原油",
+    shortLabel: "Dubai",
+    color: "var(--crude-dubai)",
+  },
+  {
+    key: "brent",
+    label: "布蘭特原油",
+    shortLabel: "Brent",
+    color: "var(--crude-brent)",
+  },
+] as const;
+
+const ALL_SERIES = [...SERIES, ...CRUDE_SERIES] as const;
 
 const RANGE_OPTIONS: ReadonlyArray<{
   id: RangePreset;
@@ -133,6 +161,10 @@ function formatPrice(value: number) {
   return value.toFixed(2);
 }
 
+function formatOptionalPrice(value: number | null) {
+  return value === null ? "—" : formatPrice(value);
+}
+
 function roundedChange(value: number) {
   return Math.round(value * 100) / 100;
 }
@@ -154,7 +186,11 @@ function rangeSpanInDays(records: ChartRecord[]) {
 }
 
 function getSeries(key: unknown) {
-  return SERIES.find((series) => series.key === key);
+  return ALL_SERIES.find((series) => series.key === key);
+}
+
+function isCrudeKey(key: unknown): key is CrudeKey {
+  return CRUDE_SERIES.some((series) => series.key === key);
 }
 
 function ChartTooltip({
@@ -183,7 +219,7 @@ function ChartTooltip({
           );
         })}
       </ul>
-      <small>元／公升</small>
+      <small>{payload.some((item) => isCrudeKey(item.dataKey)) ? "美元／桶" : "元／公升"}</small>
     </div>
   );
 }
@@ -293,7 +329,16 @@ function SiteHeader({
   );
 }
 
-function PriceDelta({ value }: { value: number }) {
+function PriceDelta({ value }: { value: number | null }) {
+  if (value === null) {
+    return (
+      <span className="price-delta is-flat">
+        <Minus size={13} aria-hidden="true" />
+        暫無上週資料
+      </span>
+    );
+  }
+
   const rounded = roundedChange(value);
   const Icon = rounded > 0 ? TrendingUp : rounded < 0 ? TrendingDown : Minus;
   const label = rounded === 0 ? "與上週持平" : `較上週 ${formatChange(rounded)}`;
@@ -338,6 +383,9 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
   const [visibleSeries, setVisibleSeries] = useState<Set<FuelKey>>(
     () => new Set(SERIES.map((series) => series.key)),
   );
+  const [visibleCrudeSeries, setVisibleCrudeSeries] = useState<Set<CrudeKey>>(
+    () => new Set(CRUDE_SERIES.map((series) => series.key)),
+  );
 
   const selectedRange = useMemo(() => {
     if (range === "all") return { start: earliestDate, end: latestDate };
@@ -378,6 +426,16 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
     });
   };
 
+  const toggleCrudeSeries = (key: CrudeKey) => {
+    setVisibleCrudeSeries((current) => {
+      if (current.has(key) && current.size === 1) return current;
+      const next = new Set(current);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
   const applyCustomRange = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (customError) return;
@@ -407,7 +465,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
           <h1 id="hero-title">
             本週全台<span>油價</span>
           </h1>
-          <p>一次掌握 4 種油品的最新價格，並自由探索超過 20 年的歷史趨勢。</p>
+          <p>一次掌握 4 種國內油品與 3 大國際原油的最新價格，並自由探索超過 20 年的歷史趨勢。</p>
         </div>
         <div className="hero-highlight">
           <span>95 無鉛汽油</span>
@@ -554,11 +612,13 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
                   visibleSeries.has(series.key) ? (
                     <Line
                       key={series.key}
-                      type="stepAfter"
+                      type="monotone"
                       dataKey={series.key}
                       name={series.label}
                       stroke={series.color}
                       strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       dot={false}
                       activeDot={{ r: 4, strokeWidth: 2, fill: series.color }}
                       connectNulls
@@ -577,6 +637,134 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
         )}
       </section>
 
+      <section className="crude-section glass-panel" aria-labelledby="crude-overview-title">
+        <div className="crude-heading">
+          <div>
+            <span className="section-kicker"><Flame size={15} aria-hidden="true" />國際原油</span>
+            <h2 id="crude-overview-title">本週原油均價</h2>
+            <p>三大國際原油週平均價格，單位為美元／桶；點選卡片可切換下方圖表線條。</p>
+          </div>
+          <span className="badge badge-ghost">USD／桶</span>
+        </div>
+
+        <div className="crude-grid" aria-label="本週國際原油價格，可切換圖表線條">
+          {CRUDE_SERIES.map((series) => {
+            const isVisible = visibleCrudeSeries.has(series.key);
+            const currentValue = latest[series.key];
+            const previousValue = previous[series.key];
+            const change =
+              currentValue === null || previousValue === null
+                ? null
+                : currentValue - previousValue;
+
+            return (
+              <button
+                key={series.key}
+                type="button"
+                className={`card glass-panel price-card crude-price-card ${isVisible ? "is-active" : "is-muted"}`}
+                style={{ "--series-color": series.color } as CSSProperties}
+                aria-pressed={isVisible}
+                onClick={() => toggleCrudeSeries(series.key)}
+              >
+                <span className="price-card-header">
+                  <span>{series.label}</span>
+                  <span className="series-dot" />
+                </span>
+                <span className="price-value">
+                  {formatOptionalPrice(currentValue)}<small>USD／桶</small>
+                </span>
+                <PriceDelta value={change} />
+                <span className="series-state">
+                  {isVisible ? <Check size={12} aria-hidden="true" /> : null}
+                  {isVisible ? "圖表顯示中" : "已從圖表隱藏"}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="chart-card glass-panel" aria-labelledby="crude-trend-title">
+        <div className="chart-heading">
+          <div>
+            <span className="section-kicker"><CalendarRange size={15} aria-hidden="true" />國際行情</span>
+            <h2 id="crude-trend-title">原油價格走勢</h2>
+            <p>沿用上方選擇的時間範圍，方便對照國內油價與國際行情。</p>
+          </div>
+          <div className="range-summary">
+            <strong>{visibleRecords.length.toLocaleString("zh-TW")}</strong>
+            <span>週資料</span>
+          </div>
+        </div>
+
+        <div className="linked-range">
+          <span className="badge badge-outline">同步時間範圍</span>
+          <p className="selected-range" aria-live="polite">
+            {visibleRecords.length > 0
+              ? `${formatDate(visibleRecords[0].date)} — ${formatDate(visibleRecords[visibleRecords.length - 1].date)}`
+              : `${formatDate(selectedRange.start)} — ${formatDate(selectedRange.end)}`}
+          </p>
+        </div>
+
+        {visibleRecords.length > 0 ? (
+          <div
+            className="chart-canvas"
+            role="img"
+            aria-label={`${formatDate(visibleRecords[0].date)}至${formatDate(visibleRecords[visibleRecords.length - 1].date)}，三種國際原油每週平均價格趨勢圖`}
+          >
+            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
+              <LineChart data={visibleRecords} margin={{ top: 16, right: 8, bottom: 4, left: 0 }}>
+                <CartesianGrid stroke="var(--chart-grid)" strokeDasharray="4 7" vertical={false} />
+                <XAxis
+                  dataKey="date"
+                  axisLine={false}
+                  tickLine={false}
+                  minTickGap={52}
+                  tick={{ fill: "var(--chart-muted)", fontSize: 11 }}
+                  tickFormatter={(date: string) => formatAxisDate(date, spanInDays)}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  width={42}
+                  domain={["dataMin - 5", "dataMax + 5"]}
+                  tick={{ fill: "var(--chart-muted)", fontSize: 11 }}
+                  tickFormatter={(value: number) => value.toFixed(0)}
+                />
+                <Tooltip
+                  content={ChartTooltip}
+                  cursor={{ stroke: "var(--chart-cursor)", strokeDasharray: "4 4" }}
+                  isAnimationActive={false}
+                />
+                {CRUDE_SERIES.map((series) =>
+                  visibleCrudeSeries.has(series.key) ? (
+                    <Line
+                      key={series.key}
+                      type="monotone"
+                      dataKey={series.key}
+                      name={series.label}
+                      stroke={series.color}
+                      strokeWidth={2.5}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      dot={false}
+                      activeDot={{ r: 4, strokeWidth: 2, fill: series.color }}
+                      connectNulls
+                      animationDuration={260}
+                    />
+                  ) : null,
+                )}
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        ) : (
+          <div className="chart-empty" role="status">
+            <CalendarRange size={22} aria-hidden="true" />
+            <span>這個日期區間沒有原油資料，請調整起訖日期。</span>
+          </div>
+        )}
+      </section>
+
       <section className="history-card glass-panel" aria-labelledby="history-title">
         <div className="history-heading">
           <div>
@@ -591,8 +779,13 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
             <table className="table table-zebra fuel-table">
               <thead>
                 <tr>
-                  <th>週期起始</th>
+                  <th rowSpan={2}>週期起始</th>
+                  <th className="table-group" colSpan={SERIES.length}>國內油價（元／L）</th>
+                  <th className="table-group" colSpan={CRUDE_SERIES.length}>國際原油（USD／桶）</th>
+                </tr>
+                <tr>
                   {SERIES.map((series) => <th key={series.key}>{series.shortLabel}</th>)}
+                  {CRUDE_SERIES.map((series) => <th key={series.key}>{series.shortLabel}</th>)}
                 </tr>
               </thead>
               <tbody>
@@ -601,6 +794,9 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
                     <th>{formatDate(record.date)}</th>
                     {SERIES.map((series) => (
                       <td key={series.key}>{formatPrice(record[series.key])}</td>
+                    ))}
+                    {CRUDE_SERIES.map((series) => (
+                      <td key={series.key}>{formatOptionalPrice(record[series.key])}</td>
                     ))}
                   </tr>
                 ))}
@@ -639,7 +835,7 @@ export function FuelDashboard({
         )}
       </main>
       <footer className="site-footer glass-panel">
-        <p>全國週平均油品價格 · 時區 Asia/Taipei</p>
+        <p>全國油品與國際原油週平均價格 · 時區 Asia/Taipei</p>
         <nav aria-label="資料來源">
           <a href="https://opendata.futa.gg/swagger-ui#/fuel-prices/list_fuel_prices" target="_blank" rel="noreferrer">
             API 文件 <ExternalLink size={13} aria-hidden="true" />

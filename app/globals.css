@@ -11,6 +11,9 @@
   --fuel-95: #ee6c2f;
   --fuel-98: #c15282;
   --fuel-diesel: #358978;
+  --crude-wti: #4f6fa9;
+  --crude-dubai: #9a7432;
+  --crude-brent: #76599a;
   --glass-surface: color-mix(in oklab, var(--color-base-100) 78%, transparent);
   --glass-surface-strong: color-mix(in oklab, var(--color-base-100) 91%, transparent);
   --glass-border: color-mix(in oklab, var(--color-base-content) 12%, transparent);
@@ -25,6 +28,9 @@ html[data-theme="night"] {
   --fuel-95: #ff8b55;
   --fuel-98: #dd78a4;
   --fuel-diesel: #59b9a3;
+  --crude-wti: #7f9bdd;
+  --crude-dubai: #d5a84d;
+  --crude-brent: #ae8ad1;
   --glass-surface: color-mix(in oklab, var(--color-base-100) 74%, transparent);
   --glass-surface-strong: color-mix(in oklab, var(--color-base-100) 90%, transparent);
   --glass-border: color-mix(in oklab, var(--color-base-content) 13%, transparent);
@@ -464,6 +470,7 @@ html[data-theme="night"] .hero-copy h1 span {
 }
 
 .chart-card,
+.crude-section,
 .history-card,
 .empty-state {
   border-radius: 24px;
@@ -471,6 +478,43 @@ html[data-theme="night"] .hero-copy h1 span {
 
 .chart-card {
   padding: clamp(19px, 3.5vw, 32px);
+}
+
+.crude-section {
+  padding: clamp(19px, 3.5vw, 30px);
+}
+
+.crude-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 17px;
+}
+
+.crude-heading h2 {
+  margin: 5px 0 0;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 850;
+  letter-spacing: -0.04em;
+}
+
+.crude-heading p {
+  margin: 4px 0 0;
+  color: color-mix(in oklab, var(--color-base-content) 56%, transparent);
+  font-size: 12px;
+}
+
+.crude-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.crude-price-card {
+  min-height: 176px;
+  background: color-mix(in oklab, var(--color-base-100) 64%, transparent);
+  box-shadow: 0 12px 30px color-mix(in oklab, var(--series-color) 8%, transparent);
 }
 
 .chart-heading,
@@ -559,6 +603,18 @@ html[data-theme="night"] .section-kicker {
   font-size: 11px;
   text-align: right;
   white-space: nowrap;
+}
+
+.linked-range {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--color-base-100) 48%, transparent);
+  padding: 9px 11px;
 }
 
 .custom-range {
@@ -697,8 +753,16 @@ html[data-theme="night"] .section-kicker {
 }
 
 .fuel-table {
-  min-width: 620px;
+  min-width: 940px;
   background: color-mix(in oklab, var(--color-base-100) 46%, transparent);
+}
+
+.fuel-table .table-group {
+  border-left: 1px solid var(--glass-border);
+  color: color-mix(in oklab, var(--color-base-content) 58%, transparent);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-align: center;
 }
 
 .fuel-table th,
@@ -904,6 +968,19 @@ html[data-theme="night"] .section-kicker {
     gap: 8px;
   }
 
+  .crude-grid {
+    grid-template-columns: repeat(3, minmax(205px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .crude-price-card {
+    min-height: 148px;
+    scroll-snap-align: start;
+  }
+
   .price-card {
     min-height: 148px;
     border-radius: 17px;
@@ -919,12 +996,14 @@ html[data-theme="night"] .section-kicker {
   }
 
   .chart-card,
+  .crude-section,
   .history-card {
     border-radius: 20px;
     padding: 17px 13px;
   }
 
   .chart-heading h2,
+  .crude-heading h2,
   .history-heading h2 {
     font-size: 22px;
   }
@@ -936,6 +1015,15 @@ html[data-theme="night"] .section-kicker {
   .range-tabs .tab {
     min-width: 60px;
     padding-inline: 12px;
+  }
+
+  .linked-range {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .linked-range .selected-range {
+    white-space: normal;
   }
 
   .custom-range {
