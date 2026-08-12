@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "fuel-futa-gg",
+  "account_id": "f242adebab552ca8f7ef43b3a2ae64ba",
+  "pages_build_output_dir": ".pages-dist",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"]
+}

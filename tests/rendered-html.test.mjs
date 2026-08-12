@@ -64,8 +64,11 @@ test("includes extended and custom time-range controls", async () => {
   assert.match(css, /@plugin "daisyui"/);
   assert.match(packageJson, /"daisyui":/);
   assert.match(packageJson, /"recharts":/);
+  assert.match(packageJson, /"build:pages":/);
+  assert.match(packageJson, /wrangler pages deploy/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
   await assert.rejects(access(previewRoot));
+  await assert.rejects(access(new URL("../.openai/hosting.json", import.meta.url)));
   await access(new URL("public/favicon.svg", templateRoot));
 });

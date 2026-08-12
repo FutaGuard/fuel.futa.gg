@@ -19,6 +19,14 @@ npm install
 npm run dev
 ```
 
+## Cloudflare Pages 部署
+
+專案使用 Pages Advanced Mode，在本機整理靜態資源與 vinext Worker 後，由 Wrangler 直接部署：
+
+```bash
+npm run deploy:pages
+```
+
 ## 驗證
 
 ```bash
