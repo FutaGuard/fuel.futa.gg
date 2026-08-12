@@ -9,6 +9,7 @@
     "dev": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext dev",
     "build": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext build",
     "build:pages": "npm run build && node scripts/prepare-pages.mjs",
+    "check:deployment": "node scripts/check-deployed-assets.mjs",
     "deploy:pages": "npm run build:pages && CLOUDFLARE_ACCOUNT_ID=f242adebab552ca8f7ef43b3a2ae64ba wrangler pages deploy . --cwd .pages-dist --project-name=fuel-futa-gg --branch=main",
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",

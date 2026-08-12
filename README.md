@@ -27,6 +27,12 @@ npm run dev
 npm run deploy:pages
 ```
 
+部署後可檢查首頁引用的 CSS、JavaScript 與圖片是否都能正常載入：
+
+```bash
+npm run check:deployment -- https://fuel.futa.gg/
+```
+
 ## 驗證
 
 ```bash

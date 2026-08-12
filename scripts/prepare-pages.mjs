@@ -18,7 +18,20 @@ await cp(serverDirectory, workerServerDirectory, { recursive: true });
 await rm(resolve(workerServerDirectory, "wrangler.json"), { force: true });
 await writeFile(
   resolve(workerDirectory, "index.js"),
-  'export { default } from "./server/index.js";\n',
+  `import application from "./server/index.js";
+
+export default {
+  fetch(request, env, context) {
+    const pathname = new URL(request.url).pathname;
+
+    if (pathname.startsWith("/_next/static/")) {
+      return env.ASSETS.fetch(request);
+    }
+
+    return application.fetch(request, env, context);
+  },
+};
+`,
 );
 await rm(redirectedWranglerConfig, { force: true });
 
