@@ -30,7 +30,22 @@ function isFuelPriceRecord(value: unknown): value is FuelPriceRecord {
   );
 }
 
-async function fetchFuelPrices(): Promise<FuelPriceRecord[]> {
+async function fetchLatestFuelPrice(): Promise<FuelPriceRecord | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/fuel-prices/latest`, {
+      headers: { accept: "application/json" },
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+
+    const payload: unknown = await response.json();
+    return isFuelPriceRecord(payload) ? payload : null;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchFuelHistory(): Promise<FuelPriceRecord[]> {
   const records: FuelPriceRecord[] = [];
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
@@ -58,8 +73,20 @@ async function fetchFuelPrices(): Promise<FuelPriceRecord[]> {
     if (payload.length < PAGE_SIZE) break;
   }
 
+  return records;
+}
+
+async function fetchFuelPrices(): Promise<FuelPriceRecord[]> {
+  const [records, latestRecord] = await Promise.all([
+    fetchFuelHistory(),
+    fetchLatestFuelPrice(),
+  ]);
   const uniqueRecords = new Map<number, FuelPriceRecord>();
   records.forEach((record) => uniqueRecords.set(record.id, record));
+
+  // History can remain in the upstream CDN cache after a crawler update.
+  // The live latest endpoint also picks up crude prices added to the same week.
+  if (latestRecord) uniqueRecords.set(latestRecord.id, latestRecord);
 
   return [...uniqueRecords.values()].sort(
     (a, b) => Date.parse(a.period_start) - Date.parse(b.period_start),

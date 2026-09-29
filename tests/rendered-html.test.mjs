@@ -6,10 +6,15 @@ import { fuelPrices } from "./fixtures/fuel-prices.mjs";
 const templateRoot = new URL("../", import.meta.url);
 const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
 
-function mockPrices(t, records = fuelPrices) {
+function mockPrices(t, records = fuelPrices, latest = records[0] ?? null) {
   t.mock.method(globalThis, "fetch", async (input) => {
     const url = new URL(input instanceof Request ? input.url : input);
     assert.equal(url.origin, "https://opendata.futa.gg");
+    if (url.pathname === "/fuel-prices/latest") {
+      return latest === null
+        ? new Response("Not found", { status: 404 })
+        : Response.json(latest);
+    }
     assert.equal(url.pathname, "/fuel-prices");
     const offset = Number(url.searchParams.get("offset"));
     const limit = Number(url.searchParams.get("limit"));
@@ -96,6 +101,39 @@ test("renders a crude empty state while keeping domestic charts and history", as
   assert.match(crudeChart, /<strong>0<\/strong>/);
   assert.match(crudeChart, /這個日期區間尚無原油資料，國內油價仍正常顯示。/);
   assert.doesNotMatch(crudeChart, /class="chart-canvas"/);
+});
+
+test("shows the live latest week when cached history is one week behind", async (t) => {
+  mockPrices(t, fuelPrices.slice(1), fuelPrices[0]);
+  const html = await (await render()).text();
+
+  assert.match(section(html, "hero-title"), /32\.67/);
+  assert.match(html, /國內油價資料截至 2026\/09\/26/);
+  assert.equal([...section(html, "crude-overview-title").matchAll(/本期尚無資料/g)].length, 3);
+  const history = section(html, "history-title");
+  assert.match(history, /2026\/09\/20/);
+  assert.match(history, /2026\/09\/13/);
+});
+
+test("refreshes crude prices for the latest week without duplicating history", async (t) => {
+  mockPrices(t, fuelPrices, { ...fuelPrices[0], west_texas: 104.25 });
+  const html = await (await render()).text();
+
+  const crudeCards = section(html, "crude-overview-title");
+  assert.match(crudeCards, /104\.25/);
+  assert.equal([...crudeCards.matchAll(/本期尚無資料/g)].length, 2);
+  const history = section(html, "history-title");
+  assert.equal([...history.matchAll(/2026\/09\/20/g)].length, 1);
+  assert.match(history, /104\.25/);
+});
+
+test("keeps history available when the latest endpoint is unavailable", async (t) => {
+  mockPrices(t, fuelPrices, null);
+  const html = await (await render()).text();
+
+  assert.match(section(html, "hero-title"), /32\.67/);
+  assert.match(html, /國內油價資料截至 2026\/09\/26/);
+  assert.doesNotMatch(html, /暫時無法從開放資料服務載入油價/);
 });
 
 test("keeps available crude prices including zero without inventing weekly changes", async (t) => {
