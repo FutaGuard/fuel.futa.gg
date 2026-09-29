@@ -80,7 +80,6 @@ export default async function Home() {
     <FuelDashboard
       initialRecords={records}
       dataError={dataError}
-      fetchedAt={new Date().toISOString()}
     />
   );
 }

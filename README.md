@@ -12,6 +12,8 @@
 - 歷史價格表格
 - 亮色、深色與跟隨系統主題
 
+國內油價與原油資料可分開更新。同一週尚未取得的原油價格會顯示「—」與「本期尚無資料」，不影響國內油價、圖表及歷史紀錄；頁首顯示國內油價的資料截止日期。爬蟲的同步邏輯位於 [SunsetRollercoaster](https://github.com/FutaGuard/SunsetRollercoaster)。
+
 ## 本機開發
 
 ```bash

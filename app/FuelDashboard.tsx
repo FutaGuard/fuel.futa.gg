@@ -288,20 +288,13 @@ function ThemeToggle() {
 }
 
 function SiteHeader({
-  hasData,
-  fetchedAt,
+  latestPeriodEnd,
 }: {
-  hasData: boolean;
-  fetchedAt: string;
+  latestPeriodEnd: string | null;
 }) {
-  const syncLabel = new Intl.DateTimeFormat("zh-TW", {
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Taipei",
-  }).format(new Date(fetchedAt));
+  const latestDate = latestPeriodEnd ? toTaipeiDate(latestPeriodEnd) : null;
+  const hasData = latestDate !== null;
+  const dataLabel = latestDate ? formatDate(latestDate) : null;
 
   return (
     <header className="site-header glass-panel">
@@ -318,7 +311,7 @@ function SiteHeader({
       </a>
 
       <div className="header-actions">
-        <div className="sync-status" aria-label={`資料同步時間 ${syncLabel}`}>
+        <div className="sync-status" aria-label={dataLabel ? `國內油價資料截至 ${dataLabel}` : "目前無法取得油價資料"}>
           <span
             className={`sync-status-indicator ${hasData ? "is-synced" : "is-offline"}`}
             aria-hidden="true"
@@ -326,8 +319,8 @@ function SiteHeader({
             {hasData ? <span className="sync-status-pulse" /> : null}
             <span className="sync-status-dot" />
           </span>
-          <span>{hasData ? "資料已同步" : "資料連線中斷"}</span>
-          <time dateTime={fetchedAt}>{syncLabel}</time>
+          <span>{hasData ? "資料截至" : "暫無資料"}</span>
+          {latestDate ? <time dateTime={latestDate}>{dataLabel}</time> : null}
         </div>
         <ThemeToggle />
         <a
@@ -344,12 +337,18 @@ function SiteHeader({
   );
 }
 
-function PriceDelta({ value }: { value: number | null }) {
+function PriceDelta({
+  value,
+  emptyLabel = "暫無上週資料",
+}: {
+  value: number | null;
+  emptyLabel?: string;
+}) {
   if (value === null) {
     return (
       <span className="price-delta is-flat">
         <Minus size={13} aria-hidden="true" />
-        暫無上週資料
+        {emptyLabel}
       </span>
     );
   }
@@ -384,7 +383,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
     [records],
   );
   const latest = chartRecords[chartRecords.length - 1];
-  const previous = chartRecords[chartRecords.length - 2] ?? latest;
+  const previous = chartRecords[chartRecords.length - 2];
   const earliestDate = chartRecords[0].date;
   const latestDate = latest.date;
   const latestEndDate = toTaipeiDate(latest.period_end);
@@ -423,6 +422,9 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
     () => [...visibleRecords].reverse().slice(0, 12),
     [visibleRecords],
   );
+  const crudeRecordCount = visibleRecords.filter((record) =>
+    CRUDE_SERIES.some((series) => record[series.key] !== null),
+  ).length;
   const spanInDays = rangeSpanInDays(visibleRecords);
   const customError =
     !customDraft.start || !customDraft.end
@@ -478,18 +480,18 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
             {formatShortDate(latestDate)} — {formatShortDate(latestEndDate)}
           </div>
           <h1 id="hero-title">
-            本週全台<span>油價</span>
+            最新全台<span>油價</span>
           </h1>
           <p>一次掌握 4 種國內油品與 3 大國際原油的最新價格，並自由探索超過 20 年的歷史趨勢。</p>
         </div>
         <div className="hero-highlight">
           <span>95 無鉛汽油</span>
           <strong>{formatPrice(latest.unleaded_95)}</strong>
-          <small>元／公升 · <PriceDelta value={latest.unleaded_95 - previous.unleaded_95} /></small>
+          <small>元／公升 · <PriceDelta value={previous ? latest.unleaded_95 - previous.unleaded_95 : null} /></small>
         </div>
       </section>
 
-      <section className="price-grid" aria-label="本週各油品價格，可切換圖表線條">
+      <section className="price-grid" aria-label="最新各油品價格，可切換圖表線條">
         {SERIES.map((series) => {
           const isVisible = visibleSeries.has(series.key);
           return (
@@ -508,7 +510,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
               <span className="price-value">
                 {formatPrice(latest[series.key])}<small>元／L</small>
               </span>
-              <PriceDelta value={latest[series.key] - previous[series.key]} />
+              <PriceDelta value={previous ? latest[series.key] - previous[series.key] : null} />
               <span className="series-state">
                 {isVisible ? <Check size={12} aria-hidden="true" /> : null}
                 {isVisible ? "圖表顯示中" : "已從圖表隱藏"}
@@ -656,17 +658,17 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
         <div className="crude-heading">
           <div>
             <span className="section-kicker"><Flame size={15} aria-hidden="true" />國際原油</span>
-            <h2 id="crude-overview-title">本週原油均價</h2>
-            <p>三大國際原油週平均價格，單位為美元／桶；點選卡片可切換下方圖表線條。</p>
+            <h2 id="crude-overview-title">同期原油均價</h2>
+            <p>與國內油價相同週期的原油均價，尚未取得的價格以「—」表示；點選卡片可切換下方圖表線條。</p>
           </div>
           <span className="badge badge-ghost">USD／桶</span>
         </div>
 
-        <div className="crude-grid" aria-label="本週國際原油價格，可切換圖表線條">
+        <div className="crude-grid" aria-label="同期國際原油價格，可切換圖表線條">
           {CRUDE_SERIES.map((series) => {
             const isVisible = visibleCrudeSeries.has(series.key);
             const currentValue = latest[series.key];
-            const previousValue = previous[series.key];
+            const previousValue = previous?.[series.key] ?? null;
             const change =
               currentValue === null || previousValue === null
                 ? null
@@ -688,7 +690,10 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
                 <span className="price-value">
                   {formatOptionalPrice(currentValue)}<small>USD／桶</small>
                 </span>
-                <PriceDelta value={change} />
+                <PriceDelta
+                  value={change}
+                  emptyLabel={currentValue === null ? "本期尚無資料" : "暫無上週資料"}
+                />
                 <span className="series-state">
                   {isVisible ? <Check size={12} aria-hidden="true" /> : null}
                   {isVisible ? "圖表顯示中" : "已從圖表隱藏"}
@@ -707,7 +712,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
             <p>沿用上方選擇的時間範圍，方便對照國內油價與國際行情。</p>
           </div>
           <div className="range-summary">
-            <strong>{visibleRecords.length.toLocaleString("zh-TW")}</strong>
+            <strong>{crudeRecordCount.toLocaleString("zh-TW")}</strong>
             <span>週資料</span>
           </div>
         </div>
@@ -721,7 +726,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
           </p>
         </div>
 
-        {visibleRecords.length > 0 ? (
+        {crudeRecordCount > 0 ? (
           <div
             className="chart-canvas"
             role="img"
@@ -764,7 +769,7 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
                       strokeLinejoin="round"
                       dot={false}
                       activeDot={{ r: 4, strokeWidth: 2, fill: series.color }}
-                      connectNulls
+                      connectNulls={false}
                       animationDuration={260}
                     />
                   ) : null,
@@ -775,7 +780,9 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
         ) : (
           <div className="chart-empty" role="status">
             <CalendarRange size={22} aria-hidden="true" />
-            <span>這個日期區間沒有原油資料，請調整起訖日期。</span>
+            <span>{visibleRecords.length > 0
+              ? "這個日期區間尚無原油資料，國內油價仍正常顯示。"
+              : "這個日期區間沒有原油資料，請調整起訖日期。"}</span>
           </div>
         )}
       </section>
@@ -829,11 +836,9 @@ function DashboardContent({ records }: { records: FuelPriceRecord[] }) {
 export function FuelDashboard({
   initialRecords,
   dataError,
-  fetchedAt,
 }: {
   initialRecords: FuelPriceRecord[];
   dataError: string | null;
-  fetchedAt: string;
 }) {
   const hasData = initialRecords.length > 0;
 
@@ -841,7 +846,7 @@ export function FuelDashboard({
     <div className="fuel-app" id="top">
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
-      <SiteHeader hasData={hasData} fetchedAt={fetchedAt} />
+      <SiteHeader latestPeriodEnd={initialRecords[initialRecords.length - 1]?.period_end ?? null} />
       <main className="site-main">
         {hasData ? (
           <DashboardContent records={initialRecords} />
