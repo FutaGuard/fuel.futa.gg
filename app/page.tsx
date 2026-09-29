@@ -37,7 +37,10 @@ async function fetchFuelPrices(): Promise<FuelPriceRecord[]> {
     const offset = page * PAGE_SIZE;
     const response = await fetch(
       `${API_BASE_URL}/fuel-prices?limit=${PAGE_SIZE}&offset=${offset}`,
-      { headers: { accept: "application/json" } },
+      {
+        headers: { accept: "application/json" },
+        cache: "no-store",
+      },
     );
 
     if (!response.ok) {
