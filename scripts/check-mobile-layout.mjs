@@ -68,11 +68,12 @@ try {
         ".site-main",
         ".site-main > *",
         ".site-footer",
-        ".range-toolbar",
+        ".trend-heading",
         ".range-tabs",
         ".chart-canvas",
         ".recharts-responsive-container",
-        ".crude-grid",
+        ".price-grid",
+        ".series-legend",
         ".table-wrap",
       ];
       const candidates = [

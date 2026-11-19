@@ -1,5 +1,13 @@
 import type { Metadata, Viewport } from "next";
+import { Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
+
+const notoSansTC = Noto_Sans_TC({
+  subsets: ["latin"],
+  display: "swap",
+  preload: false,
+  variable: "--font-noto-sans-tc",
+});
 
 const title = "台灣油價歷史趨勢 · fuel.futa.gg";
 const description =
@@ -41,8 +49,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fff9df" },
-    { media: "(prefers-color-scheme: dark)", color: "#10172a" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c1425" },
   ],
 };
 
@@ -74,6 +82,7 @@ export default function RootLayout({
   return (
     <html
       lang="zh-Hant"
+      className={notoSansTC.variable}
       data-theme="bumblebee"
       data-theme-mode="system"
       suppressHydrationWarning

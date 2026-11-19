@@ -69,17 +69,17 @@ test("shows the newest domestic week when its crude prices are pending", async (
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(section(html, "hero-title"), /32\.67/);
-  assert.match(section(html, "hero-title"), /09\/20/);
+  assert.match(section(html, "fuel-latest-title"), /32\.67/);
+  assert.match(section(html, "latest-title"), /09\/20/);
   assert.match(html, /國內油價資料截至 2026\/09\/26/);
   assert.match(html, /<time dateTime="2026-09-26">2026\/09\/26<\/time>/);
   assert.doesNotMatch(html, /資料已同步|資料同步時間/);
 
-  const crudeCards = section(html, "crude-overview-title");
+  const crudeCards = section(html, "crude-latest-title");
   assert.equal([...crudeCards.matchAll(/本期尚無資料/g)].length, 3);
-  assert.equal([...crudeCards.matchAll(/—<small>USD/g)].length, 3);
+  assert.equal([...crudeCards.matchAll(/class="price-value">—</g)].length, 3);
   assert.doesNotMatch(crudeCards, /103\.54|120\.47|122\.56|較上週|與上週持平/);
-  assert.match(section(html, "crude-trend-title"), /<strong>1<\/strong>/);
+  assert.match(section(html, "crude-trend-title"), /class="chart-canvas"/);
 
   const latestRow = section(html, "history-title").match(/<tbody><tr>([\s\S]*?)<\/tr>/)?.[1];
   assert.ok(latestRow);
@@ -94,11 +94,10 @@ test("renders a crude empty state while keeping domestic charts and history", as
   })));
   const html = await (await render()).text();
 
-  assert.match(section(html, "hero-title"), /32\.67/);
-  assert.match(section(html, "trend-title"), /class="chart-canvas"/);
+  assert.match(section(html, "fuel-latest-title"), /32\.67/);
+  assert.match(section(html, "fuel-trend-title"), /class="chart-canvas"/);
   assert.match(section(html, "history-title"), /2026\/09\/20/);
   const crudeChart = section(html, "crude-trend-title");
-  assert.match(crudeChart, /<strong>0<\/strong>/);
   assert.match(crudeChart, /這個日期區間尚無原油資料，國內油價仍正常顯示。/);
   assert.doesNotMatch(crudeChart, /class="chart-canvas"/);
 });
@@ -107,9 +106,9 @@ test("shows the live latest week when cached history is one week behind", async 
   mockPrices(t, fuelPrices.slice(1), fuelPrices[0]);
   const html = await (await render()).text();
 
-  assert.match(section(html, "hero-title"), /32\.67/);
+  assert.match(section(html, "fuel-latest-title"), /32\.67/);
   assert.match(html, /國內油價資料截至 2026\/09\/26/);
-  assert.equal([...section(html, "crude-overview-title").matchAll(/本期尚無資料/g)].length, 3);
+  assert.equal([...section(html, "crude-latest-title").matchAll(/本期尚無資料/g)].length, 3);
   const history = section(html, "history-title");
   assert.match(history, /2026\/09\/20/);
   assert.match(history, /2026\/09\/13/);
@@ -119,7 +118,7 @@ test("refreshes crude prices for the latest week without duplicating history", a
   mockPrices(t, fuelPrices, { ...fuelPrices[0], west_texas: 104.25 });
   const html = await (await render()).text();
 
-  const crudeCards = section(html, "crude-overview-title");
+  const crudeCards = section(html, "crude-latest-title");
   assert.match(crudeCards, /104\.25/);
   assert.equal([...crudeCards.matchAll(/本期尚無資料/g)].length, 2);
   const history = section(html, "history-title");
@@ -131,7 +130,7 @@ test("keeps history available when the latest endpoint is unavailable", async (t
   mockPrices(t, fuelPrices, null);
   const html = await (await render()).text();
 
-  assert.match(section(html, "hero-title"), /32\.67/);
+  assert.match(section(html, "fuel-latest-title"), /32\.67/);
   assert.match(html, /國內油價資料截至 2026\/09\/26/);
   assert.doesNotMatch(html, /暫時無法從開放資料服務載入油價/);
 });
@@ -139,7 +138,7 @@ test("keeps history available when the latest endpoint is unavailable", async (t
 test("keeps available crude prices including zero without inventing weekly changes", async (t) => {
   mockPrices(t, [{ ...fuelPrices[0], west_texas: 0, brent: -8.86 }]);
   const html = await (await render()).text();
-  const crudeCards = section(html, "crude-overview-title");
+  const crudeCards = section(html, "crude-latest-title");
 
   assert.match(crudeCards, /0\.00/);
   assert.match(crudeCards, /-8\.86/);
@@ -170,7 +169,7 @@ test("includes extended and custom time-range controls", async () => {
   assert.match(dashboard, /type="date"/);
   assert.match(dashboard, /套用區間/);
   assert.match(dashboard, /aria-pressed/);
-  for (const label of ["西德州原油", "杜拜原油", "布蘭特原油", "原油價格走勢"]) {
+  for (const label of ["西德州原油", "杜拜原油", "布蘭特原油"]) {
     assert.match(dashboard, new RegExp(label));
   }
   for (const field of ["west_texas", "dubai", "brent"]) {
