@@ -1,0 +1,677 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-19T08:55:10+00:00",
+  "title": "Design System: 台灣油價",
+  "extensions": {
+    "colorMeta": {
+      "price-board-yellow": {
+        "role": "primary",
+        "displayName": "價目牌黃",
+        "canonical": "oklch(85% 0.199 91.936)",
+        "tonalRamp": [
+          "oklch(15% 0.085 91.9)",
+          "oklch(25% 0.115 91.9)",
+          "oklch(35% 0.141 91.9)",
+          "oklch(45% 0.164 91.9)",
+          "oklch(55% 0.185 91.9)",
+          "oklch(65% 0.177 91.9)",
+          "oklch(80% 0.081 91.9)",
+          "oklch(95% 0.012 91.9)"
+        ]
+      },
+      "price-board-ink": {
+        "role": "primary",
+        "displayName": "價目牌墨",
+        "canonical": "oklch(42% 0.095 57.708)",
+        "tonalRamp": [
+          "oklch(15% 0.041 57.7)",
+          "oklch(25% 0.055 57.7)",
+          "oklch(35% 0.067 57.7)",
+          "oklch(45% 0.078 57.7)",
+          "oklch(55% 0.088 57.7)",
+          "oklch(65% 0.085 57.7)",
+          "oklch(80% 0.039 57.7)",
+          "oklch(95% 0.006 57.7)"
+        ]
+      },
+      "price-board-yellow-deep": {
+        "role": "primary",
+        "displayName": "深價目牌黃",
+        "canonical": "color-mix(in oklab, oklch(85% 0.199 91.936) 78%, #8b5c00)",
+        "tonalRamp": [
+          "oklch(15% 0.076 89.6)",
+          "oklch(25% 0.103 89.6)",
+          "oklch(35% 0.126 89.6)",
+          "oklch(45% 0.147 89.6)",
+          "oklch(55% 0.166 89.6)",
+          "oklch(65% 0.159 89.6)",
+          "oklch(80% 0.072 89.6)",
+          "oklch(95% 0.010 89.6)"
+        ]
+      },
+      "signal-amber": {
+        "role": "secondary",
+        "displayName": "訊號琥珀",
+        "canonical": "oklch(82% 0.189 84.429)",
+        "tonalRamp": [
+          "oklch(15% 0.081 84.4)",
+          "oklch(25% 0.110 84.4)",
+          "oklch(35% 0.134 84.4)",
+          "oklch(45% 0.156 84.4)",
+          "oklch(55% 0.176 84.4)",
+          "oklch(65% 0.168 84.4)",
+          "oklch(80% 0.077 84.4)",
+          "oklch(95% 0.011 84.4)"
+        ]
+      },
+      "signal-amber-night": {
+        "role": "secondary",
+        "displayName": "訊號琥珀（夜）",
+        "canonical": "oklch(83.242% 0.139 82.95)",
+        "tonalRamp": [
+          "oklch(15% 0.059 83.0)",
+          "oklch(25% 0.081 83.0)",
+          "oklch(35% 0.099 83.0)",
+          "oklch(45% 0.115 83.0)",
+          "oklch(55% 0.129 83.0)",
+          "oklch(65% 0.124 83.0)",
+          "oklch(80% 0.057 83.0)",
+          "oklch(95% 0.008 83.0)"
+        ]
+      },
+      "price-board-ink-night": {
+        "role": "primary",
+        "displayName": "價目牌墨（夜）",
+        "canonical": "oklch(16.648% 0.027 82.95)",
+        "tonalRamp": [
+          "oklch(15% 0.012 83.0)",
+          "oklch(25% 0.016 83.0)",
+          "oklch(35% 0.019 83.0)",
+          "oklch(45% 0.022 83.0)",
+          "oklch(55% 0.025 83.0)",
+          "oklch(65% 0.024 83.0)",
+          "oklch(80% 0.011 83.0)",
+          "oklch(95% 0.002 83.0)"
+        ]
+      },
+      "paper-white": {
+        "role": "neutral",
+        "displayName": "紙白",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0.0)",
+          "oklch(25% 0.000 0.0)",
+          "oklch(35% 0.000 0.0)",
+          "oklch(45% 0.000 0.0)",
+          "oklch(55% 0.000 0.0)",
+          "oklch(65% 0.000 0.0)",
+          "oklch(80% 0.000 0.0)",
+          "oklch(95% 0.000 0.0)"
+        ]
+      },
+      "forecourt-gray": {
+        "role": "neutral",
+        "displayName": "前庭灰",
+        "canonical": "oklch(97% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0.0)",
+          "oklch(25% 0.000 0.0)",
+          "oklch(35% 0.000 0.0)",
+          "oklch(45% 0.000 0.0)",
+          "oklch(55% 0.000 0.0)",
+          "oklch(65% 0.000 0.0)",
+          "oklch(80% 0.000 0.0)",
+          "oklch(95% 0.000 0.0)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "墨黑",
+        "canonical": "oklch(20% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0.0)",
+          "oklch(25% 0.000 0.0)",
+          "oklch(35% 0.000 0.0)",
+          "oklch(45% 0.000 0.0)",
+          "oklch(55% 0.000 0.0)",
+          "oklch(65% 0.000 0.0)",
+          "oklch(80% 0.000 0.0)",
+          "oklch(95% 0.000 0.0)"
+        ]
+      },
+      "night-slate": {
+        "role": "neutral",
+        "displayName": "夜板岩",
+        "canonical": "oklch(20.768% 0.039 265.754)",
+        "tonalRamp": [
+          "oklch(15% 0.017 265.8)",
+          "oklch(25% 0.023 265.8)",
+          "oklch(35% 0.028 265.8)",
+          "oklch(45% 0.032 265.8)",
+          "oklch(55% 0.036 265.8)",
+          "oklch(65% 0.035 265.8)",
+          "oklch(80% 0.016 265.8)",
+          "oklch(95% 0.002 265.8)"
+        ]
+      },
+      "night-deep": {
+        "role": "neutral",
+        "displayName": "夜深藍",
+        "canonical": "oklch(19.314% 0.037 265.754)",
+        "tonalRamp": [
+          "oklch(15% 0.016 265.8)",
+          "oklch(25% 0.021 265.8)",
+          "oklch(35% 0.026 265.8)",
+          "oklch(45% 0.031 265.8)",
+          "oklch(55% 0.034 265.8)",
+          "oklch(65% 0.033 265.8)",
+          "oklch(80% 0.015 265.8)",
+          "oklch(95% 0.002 265.8)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "夜墨",
+        "canonical": "oklch(84.153% 0.007 265.754)",
+        "tonalRamp": [
+          "oklch(15% 0.003 265.8)",
+          "oklch(25% 0.004 265.8)",
+          "oklch(35% 0.005 265.8)",
+          "oklch(45% 0.006 265.8)",
+          "oklch(55% 0.007 265.8)",
+          "oklch(65% 0.006 265.8)",
+          "oklch(80% 0.003 265.8)",
+          "oklch(95% 0.000 265.8)"
+        ]
+      },
+      "status-green": {
+        "role": "neutral",
+        "displayName": "狀態綠",
+        "canonical": "oklch(76% 0.177 163.223)",
+        "tonalRamp": [
+          "oklch(15% 0.076 163.2)",
+          "oklch(25% 0.103 163.2)",
+          "oklch(35% 0.126 163.2)",
+          "oklch(45% 0.146 163.2)",
+          "oklch(55% 0.165 163.2)",
+          "oklch(65% 0.158 163.2)",
+          "oklch(80% 0.072 163.2)",
+          "oklch(95% 0.010 163.2)"
+        ]
+      },
+      "error-red": {
+        "role": "neutral",
+        "displayName": "錯誤紅",
+        "canonical": "oklch(70% 0.191 22.216)",
+        "tonalRamp": [
+          "oklch(15% 0.082 22.2)",
+          "oklch(25% 0.111 22.2)",
+          "oklch(35% 0.136 22.2)",
+          "oklch(45% 0.158 22.2)",
+          "oklch(55% 0.178 22.2)",
+          "oklch(65% 0.170 22.2)",
+          "oklch(80% 0.078 22.2)",
+          "oklch(95% 0.011 22.2)"
+        ]
+      },
+      "browser-chrome": {
+        "role": "neutral",
+        "displayName": "瀏覽器框色",
+        "canonical": "#f5f5f5",
+        "tonalRamp": [
+          "oklch(15% 0.000 89.9)",
+          "oklch(25% 0.000 89.9)",
+          "oklch(35% 0.000 89.9)",
+          "oklch(45% 0.000 89.9)",
+          "oklch(55% 0.000 89.9)",
+          "oklch(65% 0.000 89.9)",
+          "oklch(80% 0.000 89.9)",
+          "oklch(95% 0.000 89.9)"
+        ]
+      },
+      "browser-chrome-night": {
+        "role": "neutral",
+        "displayName": "瀏覽器框色（夜）",
+        "canonical": "#0c1425",
+        "tonalRamp": [
+          "oklch(15% 0.016 264.1)",
+          "oklch(25% 0.021 264.1)",
+          "oklch(35% 0.026 264.1)",
+          "oklch(45% 0.030 264.1)",
+          "oklch(55% 0.034 264.1)",
+          "oklch(65% 0.033 264.1)",
+          "oklch(80% 0.015 264.1)",
+          "oklch(95% 0.002 264.1)"
+        ]
+      },
+      "fuel-92": {
+        "role": "tertiary",
+        "displayName": "92 無鉛",
+        "canonical": "#e5a007",
+        "tonalRamp": [
+          "oklch(15% 0.067 77.5)",
+          "oklch(25% 0.091 77.5)",
+          "oklch(35% 0.111 77.5)",
+          "oklch(45% 0.129 77.5)",
+          "oklch(55% 0.145 77.5)",
+          "oklch(65% 0.139 77.5)",
+          "oklch(80% 0.064 77.5)",
+          "oklch(95% 0.009 77.5)"
+        ]
+      },
+      "fuel-95": {
+        "role": "tertiary",
+        "displayName": "95 無鉛",
+        "canonical": "#ee6c2f",
+        "tonalRamp": [
+          "oklch(15% 0.075 43.0)",
+          "oklch(25% 0.102 43.0)",
+          "oklch(35% 0.125 43.0)",
+          "oklch(45% 0.145 43.0)",
+          "oklch(55% 0.164 43.0)",
+          "oklch(65% 0.157 43.0)",
+          "oklch(80% 0.072 43.0)",
+          "oklch(95% 0.010 43.0)"
+        ]
+      },
+      "fuel-98": {
+        "role": "tertiary",
+        "displayName": "98 無鉛",
+        "canonical": "#c15282",
+        "tonalRamp": [
+          "oklch(15% 0.064 355.6)",
+          "oklch(25% 0.087 355.6)",
+          "oklch(35% 0.107 355.6)",
+          "oklch(45% 0.124 355.6)",
+          "oklch(55% 0.140 355.6)",
+          "oklch(65% 0.134 355.6)",
+          "oklch(80% 0.061 355.6)",
+          "oklch(95% 0.009 355.6)"
+        ]
+      },
+      "fuel-diesel": {
+        "role": "tertiary",
+        "displayName": "超級柴油",
+        "canonical": "#358978",
+        "tonalRamp": [
+          "oklch(15% 0.036 177.5)",
+          "oklch(25% 0.049 177.5)",
+          "oklch(35% 0.060 177.5)",
+          "oklch(45% 0.070 177.5)",
+          "oklch(55% 0.079 177.5)",
+          "oklch(65% 0.076 177.5)",
+          "oklch(80% 0.035 177.5)",
+          "oklch(95% 0.005 177.5)"
+        ]
+      },
+      "crude-wti": {
+        "role": "tertiary",
+        "displayName": "西德州原油",
+        "canonical": "#4f6fa9",
+        "tonalRamp": [
+          "oklch(15% 0.042 261.6)",
+          "oklch(25% 0.057 261.6)",
+          "oklch(35% 0.070 261.6)",
+          "oklch(45% 0.081 261.6)",
+          "oklch(55% 0.092 261.6)",
+          "oklch(65% 0.088 261.6)",
+          "oklch(80% 0.040 261.6)",
+          "oklch(95% 0.006 261.6)"
+        ]
+      },
+      "crude-dubai": {
+        "role": "tertiary",
+        "displayName": "杜拜原油",
+        "canonical": "#9a7432",
+        "tonalRamp": [
+          "oklch(15% 0.041 78.7)",
+          "oklch(25% 0.056 78.7)",
+          "oklch(35% 0.068 78.7)",
+          "oklch(45% 0.079 78.7)",
+          "oklch(55% 0.089 78.7)",
+          "oklch(65% 0.085 78.7)",
+          "oklch(80% 0.039 78.7)",
+          "oklch(95% 0.006 78.7)"
+        ]
+      },
+      "crude-brent": {
+        "role": "tertiary",
+        "displayName": "布蘭特原油",
+        "canonical": "#76599a",
+        "tonalRamp": [
+          "oklch(15% 0.044 303.6)",
+          "oklch(25% 0.060 303.6)",
+          "oklch(35% 0.074 303.6)",
+          "oklch(45% 0.086 303.6)",
+          "oklch(55% 0.097 303.6)",
+          "oklch(65% 0.093 303.6)",
+          "oklch(80% 0.042 303.6)",
+          "oklch(95% 0.006 303.6)"
+        ]
+      },
+      "fuel-92-night": {
+        "role": "tertiary",
+        "displayName": "92 無鉛（夜）",
+        "canonical": "#f1b72e",
+        "tonalRamp": [
+          "oklch(15% 0.066 83.4)",
+          "oklch(25% 0.090 83.4)",
+          "oklch(35% 0.110 83.4)",
+          "oklch(45% 0.128 83.4)",
+          "oklch(55% 0.144 83.4)",
+          "oklch(65% 0.138 83.4)",
+          "oklch(80% 0.063 83.4)",
+          "oklch(95% 0.009 83.4)"
+        ]
+      },
+      "fuel-95-night": {
+        "role": "tertiary",
+        "displayName": "95 無鉛（夜）",
+        "canonical": "#ff8b55",
+        "tonalRamp": [
+          "oklch(15% 0.067 44.5)",
+          "oklch(25% 0.091 44.5)",
+          "oklch(35% 0.111 44.5)",
+          "oklch(45% 0.129 44.5)",
+          "oklch(55% 0.146 44.5)",
+          "oklch(65% 0.140 44.5)",
+          "oklch(80% 0.064 44.5)",
+          "oklch(95% 0.009 44.5)"
+        ]
+      },
+      "fuel-98-night": {
+        "role": "tertiary",
+        "displayName": "98 無鉛（夜）",
+        "canonical": "#dd78a4",
+        "tonalRamp": [
+          "oklch(15% 0.057 353.6)",
+          "oklch(25% 0.078 353.6)",
+          "oklch(35% 0.096 353.6)",
+          "oklch(45% 0.111 353.6)",
+          "oklch(55% 0.125 353.6)",
+          "oklch(65% 0.120 353.6)",
+          "oklch(80% 0.055 353.6)",
+          "oklch(95% 0.008 353.6)"
+        ]
+      },
+      "fuel-diesel-night": {
+        "role": "tertiary",
+        "displayName": "超級柴油（夜）",
+        "canonical": "#59b9a3",
+        "tonalRamp": [
+          "oklch(15% 0.041 176.3)",
+          "oklch(25% 0.056 176.3)",
+          "oklch(35% 0.069 176.3)",
+          "oklch(45% 0.080 176.3)",
+          "oklch(55% 0.090 176.3)",
+          "oklch(65% 0.087 176.3)",
+          "oklch(80% 0.040 176.3)",
+          "oklch(95% 0.006 176.3)"
+        ]
+      },
+      "crude-wti-night": {
+        "role": "tertiary",
+        "displayName": "西德州原油（夜）",
+        "canonical": "#7f9bdd",
+        "tonalRamp": [
+          "oklch(15% 0.044 266.2)",
+          "oklch(25% 0.060 266.2)",
+          "oklch(35% 0.073 266.2)",
+          "oklch(45% 0.085 266.2)",
+          "oklch(55% 0.096 266.2)",
+          "oklch(65% 0.091 266.2)",
+          "oklch(80% 0.042 266.2)",
+          "oklch(95% 0.006 266.2)"
+        ]
+      },
+      "crude-dubai-night": {
+        "role": "tertiary",
+        "displayName": "杜拜原油（夜）",
+        "canonical": "#d5a84d",
+        "tonalRamp": [
+          "oklch(15% 0.051 82.6)",
+          "oklch(25% 0.070 82.6)",
+          "oklch(35% 0.085 82.6)",
+          "oklch(45% 0.099 82.6)",
+          "oklch(55% 0.112 82.6)",
+          "oklch(65% 0.107 82.6)",
+          "oklch(80% 0.049 82.6)",
+          "oklch(95% 0.007 82.6)"
+        ]
+      },
+      "crude-brent-night": {
+        "role": "tertiary",
+        "displayName": "布蘭特原油（夜）",
+        "canonical": "#ae8ad1",
+        "tonalRamp": [
+          "oklch(15% 0.046 307.0)",
+          "oklch(25% 0.063 307.0)",
+          "oklch(35% 0.077 307.0)",
+          "oklch(45% 0.090 307.0)",
+          "oklch(55% 0.101 307.0)",
+          "oklch(65% 0.097 307.0)",
+          "oklch(80% 0.044 307.0)",
+          "oklch(95% 0.006 307.0)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "頁面唯一 h1「最新油價」。"
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "面板標題。"
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "面板內分組標題，後接次要色單位。"
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "基準字級；介面文字多為 12–13px 標籤。"
+      },
+      "brand": {
+        "displayName": "Brand",
+        "purpose": "頁首「台灣油價」字樣，手機 16px。"
+      },
+      "item": {
+        "displayName": "Item",
+        "purpose": "價格格品項名稱、週期日期、圖表空狀態。"
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "漲跌、按鈕、晶片、分頁、表單標籤。"
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "圖表刻度、提示單位行、表格分組表頭、品牌網域。"
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "最新價格，全頁最大字。手機 clamp(26px, 8.5vw, 34px)。"
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "表格數值、日期區間、頁首日期。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "tooltip-float",
+        "value": "0 10px 30px rgb(0 0 0 / 16%)",
+        "purpose": "圖表浮動提示，搭配 backdrop-filter: blur(16px)。"
+      },
+      {
+        "name": "header-blur",
+        "value": "backdrop-filter: blur(16px)",
+        "purpose": "固定頁首蓋住捲動內容時使用，不加陰影。"
+      },
+      {
+        "name": "tab-active-lift",
+        "value": "0 1px 1px -1px rgb(0 0 0 / 25%), 0 1px 6px -4px rgb(0 0 0 / 50%)",
+        "purpose": "daisyUI 選中分頁內建浮起，平貼法則唯一例外。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "state-change",
+        "value": "160ms ease-out",
+        "purpose": "圖例晶片的底色、邊框、文字色切換。"
+      },
+      {
+        "name": "chart-line-enter",
+        "value": "260ms",
+        "purpose": "Recharts 折線出現與更新。"
+      },
+      {
+        "name": "sync-ping",
+        "value": "1s cubic-bezier(0, 0, 0.2, 1) infinite",
+        "purpose": "頁首資料狀態點脈動；prefers-reduced-motion 時關閉。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "680px"
+      },
+      {
+        "name": "medium",
+        "value": "900px"
+      },
+      {
+        "name": "max-content",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "價目牌黃主要按鈕，整頁只用於「套用區間」。",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">套用區間</button> <button class=\"ds-btn-primary\" type=\"button\" disabled>套用區間</button>",
+      "css": ".ds-btn-primary { height: 40px; padding: 0 16px; border: 1px solid transparent; border-radius: 8px; background: var(--color-primary, oklch(85% 0.199 91.936)); color: var(--color-primary-content, oklch(42% 0.095 57.708)); font: 600 14px/1 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: filter 160ms ease-out; } .ds-btn-primary:hover { filter: brightness(0.96); } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-primary, oklch(85% 0.199 91.936)); outline-offset: 2px; } .ds-btn-primary:disabled { background: var(--color-base-200, oklch(97% 0 0)); color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); cursor: not-allowed; filter: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "頁首主題切換用的膠囊幽靈按鈕。",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\"><svg width=\"17\" height=\"17\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect width=\"20\" height=\"14\" x=\"2\" y=\"3\" rx=\"2\"/><line x1=\"8\" x2=\"16\" y1=\"21\" y2=\"21\"/><line x1=\"12\" x2=\"12\" y1=\"17\" y2=\"21\"/></svg><span>跟隨系統</span></button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: transparent; color: var(--color-base-content, oklch(20% 0 0)); font: 600 12px/1 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background-color 160ms ease-out; } .ds-btn-ghost:hover { background: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 8%, transparent); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--color-base-content, oklch(20% 0 0)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Legend Chip",
+      "kind": "chip",
+      "refersTo": "legend-chip",
+      "description": "圖例兼線條開關；顯示中為系列色淡底與實心點，隱藏時為空心圈。",
+      "html": "<div class=\"ds-legend\"><button class=\"ds-chip\" aria-pressed=\"true\" style=\"--series-color:#ee6c2f\" type=\"button\"><span class=\"ds-dot\"></span>95 無鉛</button><button class=\"ds-chip\" aria-pressed=\"false\" style=\"--series-color:#c15282\" type=\"button\"><span class=\"ds-dot\"></span>98 無鉛</button></div>",
+      "css": ".ds-legend { display: flex; flex-wrap: wrap; gap: 6px; } .ds-chip { display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 12px; border: 1px solid color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 12%, transparent); border-radius: 999px; background: transparent; color: var(--color-base-content, oklch(20% 0 0)); font: 600 12px/1 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; cursor: pointer; transition: background-color 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out; } .ds-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--series-color); } .ds-chip[aria-pressed=\"true\"] { border-color: color-mix(in oklab, var(--series-color) 40%, color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 12%, transparent)); background: color-mix(in oklab, var(--series-color) 10%, transparent); } .ds-chip[aria-pressed=\"false\"] { color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); } .ds-chip[aria-pressed=\"false\"] .ds-dot { background: transparent; box-shadow: inset 0 0 0 1.5px var(--series-color); } .ds-chip:hover { border-color: color-mix(in oklab, var(--series-color) 65%, color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 12%, transparent)); } .ds-chip:focus-visible { outline: 2px solid var(--series-color); outline-offset: 2px; }"
+    },
+    {
+      "name": "Range Tabs",
+      "kind": "nav",
+      "refersTo": "range-tabs",
+      "description": "時間範圍盒狀分頁，選中分頁為紙白底輕浮起。",
+      "html": "<div class=\"ds-tabs\" role=\"group\" aria-label=\"選擇時間範圍\"><button class=\"ds-tab\" type=\"button\" aria-pressed=\"false\">3 個月</button><button class=\"ds-tab\" type=\"button\" aria-pressed=\"false\">6 個月</button><button class=\"ds-tab\" type=\"button\" aria-pressed=\"true\">1 年</button><button class=\"ds-tab\" type=\"button\" aria-pressed=\"false\">全部</button><button class=\"ds-tab\" type=\"button\" aria-pressed=\"false\">自訂</button></div>",
+      "css": ".ds-tabs { display: inline-flex; padding: 4px; border-radius: 12px; background: color-mix(in oklab, var(--color-base-200, oklch(97% 0 0)) 70%, transparent); } .ds-tab { min-width: 60px; height: 40px; padding: 0 12px; border: 0; border-radius: 8px; background: transparent; color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font: 400 12px/1 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; white-space: nowrap; cursor: pointer; } .ds-tab:hover { color: var(--color-base-content, oklch(20% 0 0)); } .ds-tab:focus-visible { outline: 2px solid var(--color-base-content, oklch(20% 0 0)); outline-offset: 1px; } .ds-tab[aria-pressed=\"true\"] { background: var(--color-base-100, oklch(100% 0 0)); color: var(--color-base-content, oklch(20% 0 0)); box-shadow: 0 1px 1px -1px rgb(0 0 0 / 25%), 0 1px 6px -4px rgb(0 0 0 / 50%); }"
+    },
+    {
+      "name": "Date Input",
+      "kind": "input",
+      "refersTo": "input-date",
+      "description": "自訂區間的原生日期欄位，上方標籤，下方錯誤訊息。",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">開始日期</span><input class=\"ds-input\" type=\"date\" value=\"2025-11-08\"></label><p class=\"ds-field-error\">開始日期不能晚於結束日期。</p>",
+      "css": ".ds-field { display: grid; gap: 6px; max-width: 220px; } .ds-field-label { color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font: 600 12px/1.2 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; } .ds-input { height: 40px; padding: 0 12px; border: 1px solid color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 20%, transparent); border-radius: 8px; background: color-mix(in oklab, var(--color-base-100, oklch(100% 0 0)) 91%, transparent); color: var(--color-base-content, oklch(20% 0 0)); font: 400 15px/1 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; } .ds-input:focus-visible { outline: 2px solid var(--color-base-content, oklch(20% 0 0)); outline-offset: 2px; } .ds-field-error { margin: 6px 0 0; color: color-mix(in oklab, var(--color-error, oklch(70% 0.191 22.216)) 72%, var(--color-base-content, oklch(20% 0 0))); font: 400 12px/1.4 \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; }"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "panel",
+      "description": "固定頁首：品牌、資料截至日期、主題切換。唯一使用背景模糊的平面元素。",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"#\"><span class=\"ds-brand-mark\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><line x1=\"3\" x2=\"15\" y1=\"22\" y2=\"22\"/><line x1=\"4\" x2=\"14\" y1=\"9\" y2=\"9\"/><path d=\"M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18\"/><path d=\"M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5\"/></svg></span><span class=\"ds-brand-copy\"><strong>台灣<span>油價</span></strong><small>fuel.futa.gg</small></span></a><div class=\"ds-status\"><span class=\"ds-status-dot\"></span>資料截至 <time>2026/11/14</time></div></header>",
+      "css": ".ds-header { display: flex; align-items: center; justify-content: space-between; min-height: 60px; padding: 9px 12px; border: 1px solid color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 12%, transparent); border-radius: 16px; background: color-mix(in oklab, var(--color-base-100, oklch(100% 0 0)) 91%, transparent); backdrop-filter: blur(16px); font-family: \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; color: var(--color-base-content, oklch(20% 0 0)); } .ds-brand { display: inline-flex; align-items: center; gap: 11px; color: inherit; text-decoration: none; } .ds-brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: oklch(85% 0.199 91.936); color: oklch(42% 0.095 57.708); } .ds-brand-copy { line-height: 1.1; } .ds-brand-copy strong { display: block; font-size: 18px; font-weight: 800; letter-spacing: -0.02em; } .ds-brand-copy strong span { color: color-mix(in oklab, oklch(85% 0.199 91.936) 78%, #8b5c00); } .ds-brand-copy small { display: block; margin-top: 3px; color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font: 400 11px/1 \"SFMono-Regular\", \"Roboto Mono\", Consolas, ui-monospace, monospace; } .ds-brand:focus-visible { outline: 2px solid var(--color-base-content, oklch(20% 0 0)); outline-offset: 4px; border-radius: 12px; } .ds-status { display: flex; align-items: center; gap: 7px; color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font-size: 12px; } .ds-status time { color: var(--color-base-content, oklch(20% 0 0)); font: 400 12px/1 \"SFMono-Regular\", \"Roboto Mono\", Consolas, ui-monospace, monospace; font-variant-numeric: tabular-nums; } .ds-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-success, oklch(76% 0.177 163.223)); }"
+    },
+    {
+      "name": "Price Tile",
+      "kind": "custom",
+      "refersTo": "price-tile",
+      "description": "價目牌意象核心：色點品名、等寬大字價格、附圖示的漲跌。無框無底，不可點擊。",
+      "html": "<div class=\"ds-price-grid\"><div class=\"ds-tile\" style=\"--series-color:#ee6c2f\"><span class=\"ds-tile-label\"><span class=\"ds-tile-dot\"></span>95 無鉛</span><strong class=\"ds-tile-value\">32.66</strong><span class=\"ds-delta is-down\"><svg width=\"13\" height=\"13\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><polyline points=\"22 17 13.5 8.5 8.5 13.5 2 7\"/><polyline points=\"16 17 22 17 22 11\"/></svg>較上週 −0.01</span></div><div class=\"ds-tile\" style=\"--series-color:#4f6fa9\"><span class=\"ds-tile-label\"><span class=\"ds-tile-dot\"></span>西德州原油</span><strong class=\"ds-tile-value\">—</strong><span class=\"ds-delta is-flat\">本期尚無資料</span></div></div>",
+      "css": ".ds-price-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 200px)); gap: 18px 24px; font-family: \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; color: var(--color-base-content, oklch(20% 0 0)); } .ds-tile { display: grid; gap: 8px; align-content: start; } .ds-tile-label { display: flex; align-items: center; gap: 8px; color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font-size: 13px; font-weight: 600; } .ds-tile-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--series-color); } .ds-tile-value { font: 800 42px/1 \"SFMono-Regular\", \"Roboto Mono\", Consolas, ui-monospace, monospace; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; } .ds-delta { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; } .ds-delta.is-down { color: color-mix(in oklab, #358978 82%, var(--color-base-content, oklch(20% 0 0))); } .ds-delta.is-up { color: color-mix(in oklab, #ee6c2f 72%, var(--color-base-content, oklch(20% 0 0))); } .ds-delta.is-flat { color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "平貼面板：半透明底、1px 細框、16px 圓角，不加陰影、不巢狀。",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-title\">價格走勢</h2><p class=\"ds-panel-meta\">2025/11/09 — 2026/11/08</p></section>",
+      "css": ".ds-panel { padding: clamp(18px, 3vw, 28px); border: 1px solid color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 12%, transparent); border-radius: 16px; background: color-mix(in oklab, var(--color-base-100, oklch(100% 0 0)) 82%, transparent); color: var(--color-base-content, oklch(20% 0 0)); font-family: \"Noto Sans TC\", \"PingFang TC\", \"Microsoft JhengHei\", ui-sans-serif, system-ui, sans-serif; } .ds-panel-title { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; } .ds-panel-meta { margin: 4px 0 0; color: color-mix(in oklab, var(--color-base-content, oklch(20% 0 0)) 66%, transparent); font: 400 12px/1.4 \"SFMono-Regular\", \"Roboto Mono\", Consolas, ui-monospace, monospace; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "加油站價目牌",
+    "overview": "**Creative North Star: \"加油站價目牌\"**\n\n這套設計以油站門口的價目立牌為藍本：數字最大、最先被看到，其餘東西都退到後面當配角。品項名稱、單位、漲跌像立牌上的小字，排得整齊、看得清楚，但不跟數字搶位置。訪客不管是路過瞄一眼的駕駛，還是要引用數字的記者，第一眼拿到的都是「這週多少錢」。\n\n氣質是明亮溫暖，但克制。暖黃（價目牌黃）是品牌的記憶點，只用在品牌標誌、主要按鈕和背景右上角的一層淡淡光暈，不鋪滿畫面。版面要讓一般駕駛覺得親切，不能像金融終端機；數字的排版、對齊和出處又要精準到可以放心引用。裝飾越少越好，每個元素都要回答「它幫訪客看懂數字了嗎」。\n\n密度屬於中等：資料面板寬鬆，表格緊湊。亮色主題（bumblebee）是預設，深色主題（night）跟隨系統或由訪客切換，兩套主題共用同一組結構，只換顏色。",
+    "keyCharacteristics": [
+      "價格用等寬粗體大字，是每個畫面上最大的字。",
+      "七條資料線各有固定顏色，色點、圖例、線條、浮動提示全部同色。",
+      "面板平貼，用 1px 細框分層，不用陰影。",
+      "暖黃只是點綴，不拿來大面積鋪色。",
+      "單位每組只說一次，缺值顯示「—」。"
+    ],
+    "rules": [
+      {
+        "name": "一線一色法則",
+        "body": "系列色只用來指認它所代表的那條資料線：價格旁的色點、圖例晶片、圖表線條、浮動提示的色塊，四處同色。系列色不拿來當裝飾、標題色或背景色。",
+        "section": "colors"
+      },
+      {
+        "name": "黃不當字法則",
+        "body": "價目牌黃在白底上的對比不夠，永遠不直接當文字色。亮色要黃色調文字就用深價目牌黃，深色主題用訊號琥珀（夜）。",
+        "section": "colors"
+      },
+      {
+        "name": "價目牌法則",
+        "body": "價格永遠是畫面上最大的字。任何標題、圖示或裝飾都不能比最新價格更大或更搶眼。",
+        "section": "typography"
+      },
+      {
+        "name": "等寬只給數字法則",
+        "body": "等寬字只用在價格、日期、表格數值等需要對齊的資料上，不拿來營造「科技感」。",
+        "section": "typography"
+      },
+      {
+        "name": "字距底線法則",
+        "body": "字距最緊到 -0.03em，不再更緊。",
+        "section": "typography"
+      },
+      {
+        "name": "平貼法則",
+        "body": "平面元素一律不加陰影，也不做背景模糊。陰影和模糊只給真的疊在其他內容上方的元素（浮動提示、固定頁首）。細框和陰影不同時出現在同一個面板上。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 讓最新價格保持全頁最大字：clamp(30px, 3.6vw, 42px)、800、等寬。",
+      "**Do** 每個系列在色點、圖例、線條、提示四處使用同一個系列色，深色主題換成對應的夜版色值。",
+      "**Do** 單位只在分組標題說一次（「國內油品 元／公升」），不要每個價格後面都重複。",
+      "**Do** 缺值一律顯示「—」，原油圖遇缺值斷線，絕不補值或估算。",
+      "**Do** 漲跌顏色一定搭配上升、下降或持平圖示。",
+      "**Do** 面板用 1px 細框加 16px 圓角，靠間距和細線分組。",
+      "**Do** 數字一律開 tabular-nums。"
+    ],
+    "donts": [
+      "**Don't** 在標題上方加小標籤或分類字（eyebrow／kicker），標題本身就夠了。",
+      "**Don't** 用漸層文字、裝飾光圈、漂浮色塊；背景只保留右上角那一層訊號琥珀光暈。",
+      "**Don't** 在面板裡再放卡片，也不要在平面元素上加陰影或背景模糊。",
+      "**Don't** 重複顯示同一個數字或同一段日期區間（例如把 95 無鉛同時放成主視覺大數字和價格格）。",
+      "**Don't** 把價目牌黃直接當淺色背景上的文字色。",
+      "**Don't** 讓 daisyUI 主題預設色蓋過品牌色；主題的 primary 一律覆寫成價目牌黃系。",
+      "**Don't** 用一側色條（只有一邊的邊框或偽元素）標示狀態；改用整圈細框、淡底色或色點。",
+      "**Don't** 字距緊於 -0.03em，也不要把等寬字用在非數字的文字上。"
+    ]
+  }
+}
